@@ -13,7 +13,8 @@ chunk_and_save <- function(filename) {
     trimws() %>%
     str_replace("[0-9]{2} - ", "") %>%
     str_replace(".mp3", "") %>%
-    str_replace_all(" ", "_")
+    str_replace_all(" ", "_") %>%
+    tolower()
   
   # convert to mono from stereo, averaging both channels
   mono_r <- mono(r, "both")
@@ -72,27 +73,29 @@ save_spectrogram <- function(wave_obj, filename) {
   P <- abs(spec$S)
   
   # normalize, but only if we're not in silence
-  if(mean(P) > 0) {
+  if(!(mean(P) == 0)) {
     P <- P/max(P)
   }
   
   # convert to dB, again but not if we're in silence
-  if(mean(P) > 0) {
-  P <- 10*log10(P)
+  if(!(mean(P) == 0)) {
+    P <- 10*log10(P)
   }
-
+  
   # config time axis
   t <- spec$t
   
   # plot spectrogram and save
-  png(filename)
-  imagep(x = t,
-         y = spec$f,
-         z = t(P),
-         col = oce.colorsVelocity,
-         drawPalette = FALSE,
-         decimate = FALSE,
-         axes = FALSE
-  )
-  dump <- dev.off()
+  if(!(mean(P) == 0)) {
+    png(filename)
+    imagep(x = t,
+           y = spec$f,
+           z = t(P),
+           col = oce.colorsVelocity,
+           drawPalette = FALSE,
+           decimate = FALSE,
+           axes = FALSE
+    )
+    dump <- dev.off()
+  }
 }
