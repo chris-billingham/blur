@@ -19,7 +19,7 @@ if(!fs::dir_exists("plot/little_mix")){fs::dir_create("plot/little_mix")}
 if(!fs::dir_exists("plot/radiohead")){fs::dir_create("plot/radiohead")}
 
 # generate all the spectrograms and save to plot directories
-walk(get_files[1], chunk_and_save)
+walk(get_files, chunk_and_save)
 
 # get all the new files into a big list
 # NOTE using -size as there's a problem, i've had to raise a github issue for on the fs package
