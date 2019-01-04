@@ -81,14 +81,19 @@ save_spectrogram <- function(wave_obj, filename) {
   
   # convert to dB, again but not if we're in silence
   if(!(mean(P) == 0)) {
+<<<<<<< HEAD
   P <- 10*log10(P)
+=======
+    P <- 10*log10(P)
+>>>>>>> b3214b6e4c49709a3bd0f18d2d35c156fdab5344
   }
-
+  
   # config time axis
   t <- spec$t
   
   # plot spectrogram and save
   if(!(mean(P) == 0)) {
+<<<<<<< HEAD
   png(filename)
   imagep(x = t,
          y = spec$f,
@@ -99,6 +104,19 @@ save_spectrogram <- function(wave_obj, filename) {
          axes = FALSE
   )
   dump <- dev.off()
+=======
+    png(filename)
+    imagep(x = t,
+           y = spec$f,
+           z = t(P),
+           col = oce.colorsVelocity,
+           drawPalette = FALSE,
+           decimate = FALSE,
+           axes = FALSE
+    )
+    dump <- dev.off()
+  }
+>>>>>>> b3214b6e4c49709a3bd0f18d2d35c156fdab5344
 }
 }
 
