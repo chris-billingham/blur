@@ -24,7 +24,7 @@ chunk_and_save <- function(filename) {
   print(filename)
   
   pb <- progress_bar$new(
-    format = " processing mp3 file [:bar] :percent eta: :eta",
+    format = " processing mp3 file [:bar] :percent :elapsedfull",
     clear = FALSE,
     total = floor(duration_total)
   )
