@@ -16,13 +16,13 @@ model <- keras_model_sequential() %>%
   layer_flatten() %>% 
   layer_dense(units = 128, activation = 'relu') %>% 
   layer_dropout(rate = 0.5) %>% 
-  layer_dense(units = 2, activation = 'softmax')
+  layer_dense(units = 1, activation = 'sigmoid')
 
 summary(model)
 
 # mixing things up with adadelta for a change
 model %>% compile(
-  loss = "categorical_crossentropy",
+  loss = "binary_crossentropy",
   optimizer = optimizer_adadelta(),
   metrics = c("accuracy")
 )
